@@ -94,6 +94,18 @@ app.get('/listFolders', (req, res) => {
     });
 });
 
+app.delete('/deleteFile', (req, res) => {
+    const fileName = req.query.filename
+    const query = `DELETE FROM file WHERE filename = '${fileName}'`;
+    connection.query(query, (err, result) => {
+        if (err) {
+            res.status(500).send(`Error deleting file , ${err}`)
+        } else {
+            res.send(result);
+        }
+    })
+})
+
 app.listen(port, () => {
     console.log(`Server is running at 🚀 http://localhost:${port}`)
 })
